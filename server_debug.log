@@ -1,0 +1,131 @@
+﻿uvicorn : INFO:     Started server process [16500]
+No linha:1 caractere:108
++ ... BUFFERED=1; uvicorn app.main:app --host 0.0.0.0 --port 8000 2>&1 | Ou ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [16500]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, 
+in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     127.0.0.1:53438 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53438 - "GET /api/v1/auth/me HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File 
+"C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 
+421, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 56, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\fastapi\applications.py", line 1159, in 
+__call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\applications.py", line 90, in 
+__call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\middleware\errors.py", line 
+186, in __call__
+    raise exc
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\middleware\errors.py", line 
+164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\middleware\cors.py", line 88, 
+in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\_exception_handler.py", line 
+53, in wrapped_app
+    raise exc
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\_exception_handler.py", line 
+42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\routing.py", line 660, in 
+__call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\routing.py", line 276, in 
+handle
+    await self.app(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\_exception_handler.py", line 
+53, in wrapped_app
+    raise exc
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\_exception_handler.py", line 
+42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\fastapi\routing.py", line 457, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\fastapi\dependencies\utils.py", line 
+680, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\starlette\concurrency.py", line 32, in 
+run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, 
+in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, 
+in run
+    result = context.run(func, *args)
+  File "C:\Users\i7\Desktop\projeto_teste\Agendamentos_AutomaþÒo\backend\app\dependencies.py", line 17, in 
+get_current_user
+    payload = verificar_token(token, settings.SECRET_KEY)
+  File "C:\Users\i7\Desktop\projeto_teste\Agendamentos_AutomaþÒo\backend\app\auth\jwt.py", line 17, in verificar_token
+    return jwt.decode(token, secret, algorithms=["HS256"])
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\jose\jwt.py", line 174, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\jose\jwt.py", line 506, in 
+_validate_claims
+    _validate_sub(claims, subject=subject)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\i7\AppData\Local\Programs\Python\Python314\Lib\site-packages\jose\jwt.py", line 411, in _validate_sub
+    raise JWTClaimsError("Subject must be a string.")
+jose.exceptions.JWTClaimsError: Subject must be a string.
