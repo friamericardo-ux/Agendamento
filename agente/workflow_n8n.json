@@ -1,0 +1,90 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agendamento-webhook",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook Evolution API",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4-0613",
+        "options": {
+          "systemMessage": "={{$node[\"Read Prompt\"].json[\"content\"]}}"
+        }
+      },
+      "id": "2",
+      "name": "AI Agent",
+      "type": "n8n-nodes-base.aiAgent",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://seu-backend:8000/api/v1/servicos",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpApiKeyAuth",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Get Services Tool",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [500, 500]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://seu-backend:8000/api/v1/agendamentos",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "cliente_id", "value": "={{$parameter[\"cliente_id\"]}}" },
+            { "name": "servico_id", "value": "={{$parameter[\"servico_id\"]}}" },
+            { "name": "profissional_id", "value": "={{$parameter[\"profissional_id\"]}}" },
+            { "name": "data_hora", "value": "={{$parameter[\"data_hora\"]}}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4",
+      "name": "Create Appointment Tool",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 500]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://seu-evolution-api/message/sendText/{{INSTANCE}}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "number", "value": "={{$node[\"Webhook Evolution API\"].json[\"body\"][\"data\"][\"key\"][\"remoteJid\"]}}" },
+            { "name": "text", "value": "={{$node[\"AI Agent\"].json[\"output\"]}}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5",
+      "name": "Send WhatsApp Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [800, 300]
+    }
+  ],
+  "connections": {
+    "1": {
+      "main": [[{ "node": "2", "type": "main", "index": 0 }]]
+    },
+    "2": {
+      "main": [[{ "node": "5", "type": "main", "index": 0 }]]
+    }
+  }
+}
