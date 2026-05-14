@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from app.config import settings
 from app.database import engine, Base
 from app.routers import auth, clientes, profissionais, servicos, horarios, agendamentos, tenants, internal
@@ -17,6 +18,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# app.add_middleware(HTTPSRedirectMiddleware)  # só ativar se NÃO usar Cloudflare
+
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Autenticação"])
 app.include_router(clientes.router, prefix="/api/v1", tags=["Clientes"])
 app.include_router(profissionais.router, prefix="/api/v1", tags=["Profissionais"])
@@ -29,3 +32,7 @@ app.include_router(internal.router, prefix="/internal")
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
