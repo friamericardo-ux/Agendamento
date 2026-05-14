@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://agendamento.pantanaldev.com.br/api/v1',
+  baseURL: 'https://agendamento.pantanaldev.com.br/api/v1',
 })
 
 api.interceptors.request.use((config) => {
