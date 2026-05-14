@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from app.config import settings
 from app.database import engine, Base
 from app.routers import auth, clientes, profissionais, servicos, horarios, agendamentos, tenants, internal
@@ -17,8 +16,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# app.add_middleware(HTTPSRedirectMiddleware)  # só ativar se NÃO usar Cloudflare
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Autenticação"])
 app.include_router(clientes.router, prefix="/api/v1", tags=["Clientes"])
