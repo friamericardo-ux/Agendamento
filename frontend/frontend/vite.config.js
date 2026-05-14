@@ -7,6 +7,11 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
+  define: {
+    'import.meta.env.VITE_API_URL': JSON.stringify(
+      process.env.VITE_API_URL || 'https://agendamento.pantanaldev.com.br/api/v1'
+    )
+  },
   server: {
     port: 5173,
     proxy: {
