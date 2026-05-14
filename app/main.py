@@ -18,12 +18,12 @@ app.add_middleware(
 )
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Autenticação"])
-app.include_router(clientes.router, prefix="/api/v1/clientes", tags=["Clientes"])
-app.include_router(profissionais.router, prefix="/api/v1/profissionais", tags=["Profissionais"])
-app.include_router(servicos.router, prefix="/api/v1/servicos", tags=["Serviços"])
-app.include_router(horarios.router, prefix="/api/v1/horarios", tags=["Horários Disponíveis"])
-app.include_router(agendamentos.router, prefix="/api/v1/agendamentos", tags=["Agendamentos"])
-app.include_router(tenants.router, prefix="/api/v1/tenants", tags=["Tenants"])
+app.include_router(clientes.router, prefix="/api/v1", tags=["Clientes"])
+app.include_router(profissionais.router, prefix="/api/v1", tags=["Profissionais"])
+app.include_router(servicos.router, prefix="/api/v1", tags=["Serviços"])
+app.include_router(horarios.router, prefix="/api/v1", tags=["Horários Disponíveis"])
+app.include_router(agendamentos.router, prefix="/api/v1", tags=["Agendamentos"])
+app.include_router(tenants.router, prefix="/api/v1", tags=["Tenants"])
 app.include_router(internal.router, prefix="/internal")
 
 @app.get("/health")
