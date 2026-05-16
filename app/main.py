@@ -4,7 +4,7 @@ from app.config import settings
 from app.database import engine, Base
 from app.routers import auth, clientes, profissionais, servicos, horarios, agendamentos, tenants, internal
 
-app = FastAPI(title="Agendamentos Automação", version="1.0.0")
+app = FastAPI(title="Agendamentos Automação", version="1.0.0", redirect_slashes=False)
 
 Base.metadata.create_all(bind=engine)
 

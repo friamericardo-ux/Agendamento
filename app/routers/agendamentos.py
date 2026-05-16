@@ -23,6 +23,18 @@ def listar_agendamentos(
     return service.listar(usuario.tenant_id, data_inicio, data_fim, status, profissional_id)
 
 
+
+@router.get("/disponibilidade", response_model=List[str])
+def listar_disponibilidade(
+    profissional_id: int = Query(...),
+    data: datetime = Query(...),
+    db: Session = Depends(get_db),
+    usuario: Usuario = Depends(get_current_user)
+):
+    service = AgendamentoService(db)
+    return service.listar_disponibilidade(profissional_id, data, usuario.tenant_id)
+
+
 @router.get("/{agendamento_id}", response_model=AgendamentoResponse)
 def buscar_agendamento(
     agendamento_id: int,
@@ -31,7 +43,6 @@ def buscar_agendamento(
 ):
     service = AgendamentoService(db)
     return service.buscar(agendamento_id, usuario.tenant_id)
-
 
 @router.post("/", response_model=AgendamentoResponse, status_code=status.HTTP_201_CREATED)
 def criar_agendamento(
@@ -62,13 +73,3 @@ def deletar_agendamento(
 ):
     service = AgendamentoService(db)
     service.deletar(agendamento_id, usuario.tenant_id)
-
-@router.get("/disponibilidade", response_model=List[str])
-def listar_disponibilidade(
-    profissional_id: int = Query(...),
-    data: datetime = Query(...),
-    db: Session = Depends(get_db),
-    usuario: Usuario = Depends(get_current_user)
-):
-    service = AgendamentoService(db)
-    return service.listar_disponibilidade(profissional_id, data, usuario.tenant_id)
